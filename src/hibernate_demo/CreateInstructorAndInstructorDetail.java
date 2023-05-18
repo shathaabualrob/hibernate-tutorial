@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import hibernate_demo_entity.Instructor;
 import hibernate_demo_entity.InstructorDetail;
 
-public class CreateDemo {
+public class CreateInstructorAndInstructorDetail {
 
 	public static void main(String[] args) {
 		
