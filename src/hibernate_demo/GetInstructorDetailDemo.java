@@ -36,11 +36,20 @@ public class GetInstructorDetailDemo {
 				System.out.println(inst);
 				System.out.println("______________________");
 			}
+			
+			session.delete(instD);
+			System.out.println("DELETED");
+			
 			// commit transaction
 			session.getTransaction().commit();
 			System.out.println("done");
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			//handle connection leak issue
+			session.close();
+			
+			factory.close();
 		}
 
 	}

@@ -1,12 +1,17 @@
 package hibernate_demo_entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,6 +36,17 @@ public class Instructor {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="instructor_detail_id")
 	private InstructorDetail instructorDetail;
+	
+	@OneToMany(
+			fetch = FetchType.LAZY,
+			mappedBy="instructor",
+			cascade= {
+						CascadeType.PERSIST,
+						CascadeType.MERGE,
+						CascadeType.DETACH,
+						CascadeType.REFRESH
+					})
+	private List<Course> courses;
 	
 	public Instructor() {
 		// TODO Auto-generated constructor stub
@@ -75,6 +91,25 @@ public class Instructor {
 	public void setInstructorDetail(InstructorDetail instructorDetail) {
 		this.instructorDetail = instructorDetail;
 	}
+	
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
+	//add convenience methods for bi-directional relationship
+	public void add(Course course) {
+		if(courses == null) {
+			courses = new ArrayList<>();
+		}
+		courses.add(course);
+		//We add the new created course to the current constructor
+		course.setInstructor(this);
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

@@ -1,2 +1,4 @@
-/hibernate_demo_entity/
+/hibernate.cfg.xml
 /hibernate_demo/
+/hibernate_demo_entity/
+/jdbc/
